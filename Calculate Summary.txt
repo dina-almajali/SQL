@@ -1,0 +1,23 @@
+Create or replace function caluclate_salary(p_date1 date, p_sal number) return number
+is 
+p_totalsal NUMBER (20):=0;
+LAST_DAY_OF_MONTH number (20):=0;
+
+BEGIN
+SELECT CAST(TO_CHAR(LAST_DAY(p_date1), 'DD') AS INT)
+INTO LAST_DAY_OF_MONTH
+FROM DUAL;
+DBMS_OUTPUT.PUT_LINE(LAST_DAY_OF_MONTH);
+
+SELECT (p_sal/LAST_DAY_OF_MONTH)*(SYSDATE-p_date1) AS p_totalsal
+INTO p_totalsal
+FROM DUAL;
+DBMS_OUTPUT.PUT_LINE(p_totalsal);
+
+return p_totalsal;
+
+end;
+
+
+SELECT caluclate_salary(TO_DATE('2022-10-01','YYYY-MM-DD'),1500)
+FROM DUAL;
